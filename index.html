@@ -91,7 +91,7 @@
     <div class="scene-inner welcome-inner">
       <div class="welcome-icon" aria-hidden="true">
         <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="40" cy="40" r="40" fill="#fef3c7"/> <!-- Желтый фон -->
+          <circle cx="40" cy="40" r="40" fill="#fef3c7"/> 
           <path d="M40 15L55 25V45C55 55 40 65 40 65C40 65 25 55 25 45V25L40 15Z" fill="#d97706"/>
           <path d="M40 30V45M40 52V55" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
           <path d="M25 20L15 10M55 20L65 10" stroke="#d97706" stroke-width="2" stroke-linecap="round"/>
@@ -100,8 +100,8 @@
       <h1 class="welcome-title">Итоговый тест: Угроза БПЛА</h1>
       <p class="welcome-subtitle">Проверьте свои знания по алгоритмам действий при атаке беспилотников</p>
       <p class="welcome-description">
-        Этот тест предназначен для проверки знаний после прохождения вводного инструктажа по действиям при угрозе БПЛА.
-        Убедитесь, что вы внимательно изучили материалы перед началом тестирования.
+        Этот тест предназначен для проверки знаний после прохождения инструктажа по действиям при угрозе БПЛА.
+        Убедитесь, что вы внимательно изучили материалы перед началом тестирования. В тесте действует обучающий режим.
       </p>
       <div class="welcome-meta">
         <div class="meta-item"><span class="meta-icon" aria-hidden="true">📋</span><span>20 вопросов</span></div>
@@ -209,11 +209,16 @@
       <div class="question-card" id="question-card">
         <p class="question-number" id="question-number" aria-hidden="true">01</p>
         <h2 class="question-text" id="question-text"></h2>
-        <div class="options-list" id="options-list" role="radiogroup" aria-labelledby="question-text"></div>
+        <!-- Используем group, так как могут быть чекбоксы -->
+        <div class="options-list" id="options-list" role="group" aria-labelledby="question-text"></div>
       </div>
+      
+      <!-- Блок объяснений (скрыт по умолчанию) -->
+      <div class="explanation-box" id="explanation-box" style="display: none;" aria-live="polite"></div>
+
       <div class="quiz-nav">
         <button class="btn btn-primary btn-large" id="btn-next" type="button" disabled aria-disabled="true">
-          <span id="btn-next-label">Далее</span>
+          <span id="btn-next-label">Ответить</span>
           <span class="btn-arrow" aria-hidden="true">&#x2192;</span>
         </button>
       </div>
