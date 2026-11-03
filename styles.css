@@ -1,7 +1,7 @@
 /* ============================================================
-   styles.css — Итоговый тест по вводному инструктажу ОТ
+   styles.css — Итоговый тест по действиям при угрозе БПЛА
    Автор: Cline (Senior Frontend Developer)
-   Версия: 1.0
+   Версия: 2.0 (Обучающий режим + Множественный выбор)
    ============================================================ */
 
 /* ── 1. CSS-переменные (тема) ─────────────────────────────── */
@@ -459,8 +459,11 @@ li { margin-bottom: 0.35rem; }
   transform: translateX(3px);
 }
 
-.option-radio { display: none; }
+/* Скрываем стандартные инпуты */
+.option-radio,
+.option-checkbox { display: none; }
 
+/* Маркер для радиокнопки (один ответ) */
 .option-marker {
   flex-shrink: 0;
   width: 22px;
@@ -493,10 +496,112 @@ li { margin-bottom: 0.35rem; }
   background: var(--color-primary-light);
 }
 
+/* Маркер для чекбокса (множественный выбор) */
+.option-checkbox-marker {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  position: relative;
+}
+
+.option-checkbox:checked + .option-checkbox-marker {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.option-checkbox:checked + .option-checkbox-marker::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 7px;
+  height: 12px;
+  border: 2.5px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.option-label:has(.option-checkbox:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+/* ── 10. Подсветка правильных / неправильных ответов ────────── */
+/* Блокируем ховер-эффекты после ответа */
+.option-label.is-correct,
+.option-label.is-incorrect {
+  pointer-events: none;
+  transform: none;
+}
+
+.option-label.is-correct {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+}
+
+.option-label.is-correct .option-marker,
+.option-label.is-correct .option-checkbox-marker {
+  border-color: var(--color-success);
+  background: var(--color-success);
+}
+
+.option-label.is-correct .option-marker::after {
+  background: #fff;
+}
+
+.option-label.is-incorrect {
+  border-color: var(--color-danger);
+  background: var(--color-danger-light);
+}
+
+.option-label.is-incorrect .option-marker,
+.option-label.is-incorrect .option-checkbox-marker {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+}
+
+.option-label.is-incorrect .option-marker::after {
+  background: #fff;
+}
+
+/* ── 11. Блок объяснений ──────────────────────────────────── */
+.explanation-box {
+  background: var(--color-bg);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-top: 10px;
+  animation: fadeIn 0.4s ease;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.explanation-box p {
+  margin-bottom: 12px;
+}
+.explanation-box p:last-child {
+  margin-bottom: 0;
+}
+
+.explanation-box strong {
+  font-weight: 700;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .quiz-nav { display: flex; justify-content: flex-end; }
 .quiz-nav .btn-large { width: auto; min-width: 200px; }
 
-/* ── 10. Сцена 5: Результат ───────────────────────────────── */
+/* ── 12. Сцена 5: Результат ───────────────────────────────── */
 .result-inner {
   align-items: center;
   text-align: center;
@@ -639,7 +744,7 @@ li { margin-bottom: 0.35rem; }
 }
 .result-actions .btn-large { max-width: 280px; }
 
-/* ── 11. Адаптивность ──────────────────────────────────────── */
+/* ── 13. Адаптивность ──────────────────────────────────────── */
 @media (max-width: 640px) {
   .scene { padding: 16px 12px 32px; }
 
@@ -666,6 +771,7 @@ li { margin-bottom: 0.35rem; }
   .question-card { padding: 20px; }
   .question-text { font-size: 1rem; }
   .option-label { padding: 12px 14px; font-size: 0.93rem; }
+  .explanation-box { padding: 16px; font-size: 0.9rem; }
   .quiz-nav .btn-large { width: 100%; }
 
   .result-inner { padding: 32px 20px; }
@@ -682,7 +788,7 @@ li { margin-bottom: 0.35rem; }
   .btn-large { font-size: 1rem; min-height: 48px; }
 }
 
-/* ── 12. Вспомогательные утилиты ──────────────────────────── */
+/* ── 14. Вспомогательные утилиты ──────────────────────────── */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -694,4 +800,3 @@ li { margin-bottom: 0.35rem; }
 
 /* Scrollbar-стили для Firefox */
 * { scrollbar-width: thin; scrollbar-color: var(--color-border) transparent; }
-
